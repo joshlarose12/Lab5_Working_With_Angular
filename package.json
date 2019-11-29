@@ -1,0 +1,28 @@
+{
+  "name": "jlarose4_se3316_lab5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshlarose12/jlarose4_se3316_Lab5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshlarose12/jlarose4_se3316_Lab5/issues"
+  },
+  "homepage": "https://github.com/joshlarose12/jlarose4_se3316_Lab5#readme",
+  "dependencies": {
+    "@hapi/joi": "^16.1.8",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
