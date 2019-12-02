@@ -7,6 +7,11 @@ import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CreateAccountComponent } from './create-account/create-account.component';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { AddSongComponent } from './add-song/add-song.component';
+
 
 @NgModule({
   declarations: [
@@ -14,11 +19,16 @@ import { AdminComponent } from './admin/admin.component';
     HomeComponent,
     SearchComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    CreateAccountComponent,
+    AddSongComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+<h1>
+    Create New Account
+</h1>
+<h2>
+    Enter an email and a password
+</h2>
+<form class="form-signin" [formGroup]="signupForm" (ngSubmit)="loginUser()">
+    <input type="text" placeholder="Email" formControlName="email" id = "email" required ><br>
+    <input type="password" placeholder="Password" formControlName ="password" id = "password" required><br>
+    <input type="submit" value="Submit">
+</form>
+<p>
+    Password must be longer than 6 characters.
+</p>

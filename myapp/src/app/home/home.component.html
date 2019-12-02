@@ -1,1 +1,22 @@
-<p>home works!</p>
+<h1>Music Experience</h1>
+<h2>About</h2>
+<p>This is a simple web application where users can comment, rate, and add new songs! A place to share music with
+    friends</p>
+<a href="#" routerLink="/login">Login</a>
+
+<h1>Songs</h1>
+
+<ul *ngIf="songs">
+    <div *ngFor="let song of songs; let i = index">
+        <li *ngIf="i < 11">
+            <strong>
+                <p class="title">Title: {{ song.title }}</p>
+            </strong>
+            <p class="artist">Artist: {{ song.artist }}</p>
+            <p class="album">Album: {{ song.album }}</p>
+            <p class="year">Year: {{ song.year }}</p>
+            <p class="comment">Comment: {{ song.comment }}</p>
+            <p class="genre">Genre: {{ song.genre }}</p>
+        </li>
+    </div>
+</ul>
