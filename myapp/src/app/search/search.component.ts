@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -8,19 +7,25 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  searchFrom: FormGroup;
-  constructor(private _http: HttpService,
-    fb: FormBuilder) {
-    this.searchFrom = fb.group({
-      search: ['']
-    })
+  keyword: string;
+  songs: Object;
+  displaySearch:Boolean;
+  constructor(private _http: HttpService) {
+
   }
 
   ngOnInit() {
   }
 
-  // search() {
-  //   this._http.
-  // }
+  search() {
+    console.log(this.keyword)
+    this._http.getSearch(this.keyword).subscribe(data => {
+      this.songs = data;
+      this.displaySearch = true;
+    });
+  }
+  seeReviews(title){
+    this.displaySearch = false;
+  }
 
 }

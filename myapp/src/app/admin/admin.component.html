@@ -7,17 +7,17 @@
     </h2>
     <button (click)='showUsers'>Display users</button>
     <ul *ngIf="users">
-        <li **ngFor="let user of users"></li>
-        <strong>
-            <p class="email">Email: {{ user.email }}</p>
-        </strong>
-        <p class="admin">Current admin: {{ user.admin }}</p>
-        <button (click)='setAdmin(user.email)'>Set user as admin</button>
-        <p class="deactivated">Deactivated: {{ user.deactivated }}</p>
-        <button (click)='deactivate(user.email)'>Deactivate user</button>
+        <li *ngFor="let user of users">
+            <strong>
+                <p class="email">Email: {{ user.email }}</p>
+            </strong>
+            <p class="admin">Current admin: {{ user.admin }}</p>
+            <button (click)='setAdmin(user.email)'>Set user as admin</button>
+            <p class="deactivated">Deactivated: {{ user.deactivated }}</p>
+            <button (click)='deactivate(user.email)'>Deactivate user</button>
         </li>
     </ul>
-</div>>
+</div>
 
 <div>
     <h2>

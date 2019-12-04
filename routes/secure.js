@@ -44,6 +44,7 @@ router.post('/review/add',verify, async(req,res)=>{
         review: req.body.review,
         username: req.body.username,
         rating: req.body.rating,
+        song: req.body.song
     });
     try {
         const savedReview = await review.save();
