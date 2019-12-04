@@ -6,6 +6,7 @@ import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { AddSongComponent } from './add-song/add-song.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'admin',component:AdminComponent},
   {path:'createaccount',component:CreateAccountComponent},
+  {path:'addsong',component:AddSongComponent}
   //{path: '',redirectTo: '',pathMatch:'full'}
 ];
 

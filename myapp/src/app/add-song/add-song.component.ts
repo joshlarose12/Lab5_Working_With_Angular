@@ -9,16 +9,19 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./add-song.component.scss']
 })
 export class AddSongComponent implements OnInit {
+
   songForm: FormGroup;
+  error:String;
+
   constructor(private _http: HttpService,
     private fb: FormBuilder) {
     this.songForm = this.fb.group({
       title: [''],
       artist: [''],
-      album:[''],
-      year:[''],
-      comment:[''],
-      genre:['']
+      album: [''],
+      year: [''],
+      comment: [''],
+      genre: ['']
     })
   }
 
@@ -26,6 +29,12 @@ export class AddSongComponent implements OnInit {
   }
 
   addSong() {
-    this._http.postSong(this.songForm.value).subscribe();
+    this._http.postSong(this.songForm.value).subscribe((res: any) => {
+      console.log("created song")
+      this.error = res.error;
+      },error=>{
+        this.error = error.error;
+        console.log(error);
+      });
   }
 }

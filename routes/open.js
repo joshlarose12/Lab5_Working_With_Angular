@@ -3,7 +3,7 @@ const User = require('../model/User');
 const Song = require('../model/Song');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { registerValidation, songValidation } = require('../validation');
+const { registerValidation } = require('../validation');
 
 
 router.post('/register', async (req, res) => {
@@ -42,17 +42,17 @@ router.post('/login', async (req, res) => {
     //Check if email exists
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(400).send("Email is incorrect");
-
+    
     //Check password
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Invalid password');
 
 
     //Create and assign web token
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET,{expiresIn:'30s'});
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '5m' });
     res.header('auth-token', token).send({ token: token });
 
-    res.send('Logged in!!');
+    //res.send('Logged in!!');
 
 });
 
@@ -64,15 +64,11 @@ router.get('/songs', (req, res) => {
     });
 });
 
-// router.get('/search', async (req, res) => {
-//     let search = req.query.search;
+router.get('/search', async (req, res) => {
+    
+});
 
-//     Song.find({
-//         $or: [{ title: search },
-//         { title: search },
-//         { artist: search },
-//         { album: search }]
-//     }})
-// });
+router.get("/review",async (req,res)=>{
+})
 
 module.exports = router;

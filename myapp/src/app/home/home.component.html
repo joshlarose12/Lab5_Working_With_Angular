@@ -1,3 +1,4 @@
+<p *ngIf="loggedIn">Logged In</p>
 <h1>Music Experience</h1>
 <h2>About</h2>
 <p>This is a simple web application where users can comment, rate, and add new songs! A place to share music with
@@ -6,17 +7,25 @@
 
 <h1>Songs</h1>
 
+<div *ngIf="loggedIn">
+    <h2>Add song a song:</h2>
+    <button (click)="addSong()">Add</button>
+</div>
+<h2>Top Ten Rated Songs</h2>
 <ul *ngIf="songs">
     <div *ngFor="let song of songs; let i = index">
-        <li *ngIf="i < 11">
+        <li *ngIf="i < 11" id=i>
             <strong>
                 <p class="title">Title: {{ song.title }}</p>
             </strong>
-            <p class="artist">Artist: {{ song.artist }}</p>
-            <p class="album">Album: {{ song.album }}</p>
-            <p class="year">Year: {{ song.year }}</p>
-            <p class="comment">Comment: {{ song.comment }}</p>
-            <p class="genre">Genre: {{ song.genre }}</p>
+            <button (click)="displayMore(song.title)">More</button>
+            <div *ngIf="display == song.title">
+                <p class="artist">Artist: {{ song.artist }}</p>
+                <p class="album">Album: {{ song.album }}</p>
+                <p class="year">Year: {{ song.year }}</p>
+                <p class="comment">Comment: {{ song.comment }}</p>
+                <p class="genre">Genre: {{ song.genre }}</p>
+            </div>
         </li>
     </div>
 </ul>

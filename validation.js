@@ -46,11 +46,28 @@ const songValidation = data => {
             .max(30),
         genre: Joi.number()
             .max(1),
-        rating: Joi.number()
+        ratingAvg: Joi.number()
             .max(5)
     });
     return schema.validate(data);
 }
+const reviewValidation = data => {
+    const schema = Joi.object({
+        review: Joi.string()
+            .required()
+            .max(1000),
+        username: Joi.string()
+            .required()
+            .max(255),
+        rating: Joi.number()
+            .required()
+            .max(5)
+            .min(0),
+    });
+    return schema.validate(data);
+}
+
 
 module.exports.registerValidation = registerValidation;
 module.exports.songValidation = songValidation;
+module.exports.reviewValidation = reviewValidation;

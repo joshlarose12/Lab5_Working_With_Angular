@@ -29,11 +29,16 @@ const songSchema = new mongoose.Schema({
         type: Number,
         max: 1
     },
-    rating:{
+    ratingAvg:{
         type: Number,
         max: 5
+    },
+    totalRev:{
+        type:Number
+    },
+    hidden:{
+        type:Boolean
     }
-
 });
 
 module.exports = mongoose.model('Song', songSchema);

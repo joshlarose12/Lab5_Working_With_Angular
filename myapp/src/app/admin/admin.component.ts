@@ -11,5 +11,13 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
   }
+  setAdmin(email){
+    
+  }
+  deactivate(email){
 
+  }
+  setHidden(title){
+
+  }
 }

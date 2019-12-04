@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { AddSongComponent } from './add-song/add-song.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AddSongComponent } from './add-song/add-song.component';
     LoginComponent,
     AdminComponent,
     CreateAccountComponent,
-    AddSongComponent
+    AddSongComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,

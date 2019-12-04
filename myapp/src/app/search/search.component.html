@@ -1,1 +1,6 @@
-<p>search works!</p>
+<h1>Search</h1>
+<form class="form-search" [formGroup]="searchForm" (ngSubmit)="search()">
+    <input type="text" placeholder="Keyword" formControlName="keyword" id="keyword" required><br>
+    <input type="submit" value="Search">
+    
+</form>

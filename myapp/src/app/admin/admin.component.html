@@ -1,1 +1,41 @@
-<p>admin works!</p>
+<h1>Site Manager Privilege</h1>
+<h2>Select an option:</h2>
+
+<div>
+    <h2>
+        View Existing Users
+    </h2>
+    <button (click)='showUsers'>Display users</button>
+    <ul *ngIf="users">
+        <li **ngFor="let user of users"></li>
+        <strong>
+            <p class="email">Email: {{ user.email }}</p>
+        </strong>
+        <p class="admin">Current admin: {{ user.admin }}</p>
+        <button (click)='setAdmin(user.email)'>Set user as admin</button>
+        <p class="deactivated">Deactivated: {{ user.deactivated }}</p>
+        <button (click)='deactivate(user.email)'>Deactivate user</button>
+        </li>
+    </ul>
+</div>>
+
+<div>
+    <h2>
+        View Existing Songs
+    </h2>
+    <button (click)='showUsers'>Display users</button>
+    <ul *ngIf="songs">
+        <li *ngFor="let song of songs">
+            <strong>
+                <p class="title">Title: {{ song.title }}</p>
+            </strong>
+            <p class="artist">Artist: {{ song.artist }}</p>
+            <p class="album">Album: {{ song.album }}</p>
+            <p class="year">Year: {{ song.year }}</p>
+            <p class="comment">Comment: {{ song.comment }}</p>
+            <p class="genre">Genre: {{ song.genre }}</p>
+            <p class="hidden">Hidden: {{ song.hidden }}</p>
+            <button (click)='setHidden(song.title)'>Hide this song</button>
+        </li>
+    </ul>
+</div>

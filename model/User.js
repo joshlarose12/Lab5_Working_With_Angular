@@ -15,7 +15,14 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }   
+    },
+    admin:{
+        type:Boolean,
+        required:true
+    },
+    deactivated:{
+        type:Boolean
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
