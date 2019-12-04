@@ -63,6 +63,9 @@ const reviewValidation = data => {
             .required()
             .max(5)
             .min(0),
+        song: Joi.string()
+            .required()
+
     });
     return schema.validate(data);
 }

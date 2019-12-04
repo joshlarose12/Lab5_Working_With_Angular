@@ -4,11 +4,13 @@
     <input type="submit" value="Search">
 
 </form>
+<!-- <button (click)="toggle()"></button> -->
 <div *ngIf="displaySearch">
     <ul *ngIf="songs">
-        <div *ngIf="song">
 
-            <li *ngFor="let song of songs">
+
+        <li *ngFor="let song of songs">
+            <div *ngIf="song != null">
                 <strong>
                     <p class="title">Title: {{ song.title }}</p>
                 </strong>
@@ -17,9 +19,23 @@
                 <p class="year">Year: {{ song.year }}</p>
                 <p class="comment">Comment: {{ song.comment }}</p>
                 <p class="genre">Genre: {{ song.genre }}</p>
-                <button (click)='seeReviews(song.title)'>View Reviews</button>
+                <button (click)="getReviews(song.title)">View Reviews</button>
+            </div>
+
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="displayReviews">
+    <ul *ngIf="reviews">
+        <div *ngIf="review">
+
+            <li *ngFor="let review of reviews">
+                <p class="Review">Review: {{ review.review }}</p>
+                <p class="Rating">Rating: {{ review.rating }}</p>
+                <p class="Username">Username: {{ review.email }}</p>
+                <button (click)='back()'>Back</button>
             </li>
         </div>
-
     </ul>
 </div>

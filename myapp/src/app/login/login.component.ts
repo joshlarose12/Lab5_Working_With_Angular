@@ -33,13 +33,19 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this._http.postLogin(this.signupForm.value).subscribe(
       (res: any) => {
-
-        this.router.navigate(['']);
-        localStorage.setItem("access_token", res.token);
-        this.loggedin = 'Logged in!';
-        this.authService.setLoggedIn(true);
-        console.log(this.authService.getLoggedIn());
-
+        console.log(res.admin);
+        if (res.admin) {
+          if (res.admin == true) {
+            this.router.navigate(['admin']);
+          }
+        }
+        else {
+          this.router.navigate(['']);
+          localStorage.setItem("access_token", res.token);
+          this.loggedin = 'Logged in!';
+          this.authService.setLoggedIn(true);
+          console.log(this.authService.getLoggedIn());
+        }
       }, error => { this.loggedin = error.error, console.log(error.error) }
     );
   }

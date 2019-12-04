@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now
     },
     admin:{
-        type:Boolean,
-        required:true
+        type:Boolean
     },
     deactivated:{
         type:Boolean

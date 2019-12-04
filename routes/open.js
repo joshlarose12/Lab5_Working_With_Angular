@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../model/User');
 const Song = require('../model/Song');
+const Review = require('../model/Review')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { registerValidation } = require('../validation');
@@ -18,12 +19,13 @@ router.post('/register', async (req, res) => {
 
     //Hash password
     const salt = await bcrypt.genSalt(10);
-    const hashedPasswprd = await bcrypt.hash(req.body.password, salt);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     //create user
     const user = new User({
         email: req.body.email,
-        password: hashedPasswprd
+        password: hashedPassword,
+        admin: false 
     });
     try {
         const savedUser = await user.save();
@@ -47,10 +49,9 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Invalid password');
 
-
     //Create and assign web token
     const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '5m' });
-    res.header('auth-token', token).send({ token: token });
+    res.header('auth-token', token).send({ token: token, admin:user.admin });
 
     //res.send('Logged in!!');
 
@@ -78,16 +79,18 @@ router.get('/search', async (req, res) => {
                 songs[x].year != undefined && stringSimilarity.compareTwoStrings(req.query.search, String(songs[x].year)) >= 0.4) {
                 array[x] = songs[x];
             }
+            array.filter(function (el) {
+                return el != null;
+            });
         }
-        array.filter(function (el) {
-            return el != null;
-        });
+        
         res.send(array);
     });
 });
 
 router.get("/review", async (req, res) => {
-    Review.findOne({ song: req.query.song }, function (err, review) {
+    console.log("query" + req.query.song);
+    Review.find({ song: req.query.song }, function (err, review) {
         if (err) return next(err);
 
         res.send(review);

@@ -9,23 +9,38 @@ import { HttpService } from '../http.service';
 export class SearchComponent implements OnInit {
   keyword: string;
   songs: Object;
-  displaySearch:Boolean;
+  displaySearch: Boolean;
+  reviews: Object;
+  displayReviews: Boolean;
   constructor(private _http: HttpService) {
-
+    this.displaySearch = true;
+    this.displayReviews = false;
   }
 
   ngOnInit() {
   }
-
+  toggle() {
+    if (!this.displaySearch) {
+      this.displaySearch = true;
+      console.log(this.displaySearch)
+    } else
+      this.displaySearch = false;
+  }
   search() {
     console.log(this.keyword)
     this._http.getSearch(this.keyword).subscribe(data => {
-      this.songs = data;
       this.displaySearch = true;
+      this.songs = data;
+      console.log(data);
     });
   }
-  seeReviews(title){
-    this.displaySearch = false;
+  getReviews(title) {
+    this.displayReviews = true;
+    this._http.getReviews(title).subscribe(data => {
+      this.reviews = data;
+      console.log(data[0]);
+    });
   }
+
 
 }

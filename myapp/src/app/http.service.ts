@@ -16,6 +16,7 @@ export class HttpService {
   private getSongsURL: string = 'http://localhost:3000/api/open/songs';
   private postSongsURL: string = 'http://localhost:3000/api/secure/songs/create';
   private postReviewURL: string = 'http://localhost:3000/api/secure/review/add';
+  private getReviewURL: string = 'http://localhost:3000/api/open/review?song=';
   private getSearchURL: string = 'http://localhost:3000/api/open/search?search=';
   private putUserURL: string = 'http://localhost:3000/api/secure/user'
 
@@ -48,6 +49,10 @@ export class HttpService {
       });
       return this.http.post(this.postReviewURL, review, { headers })
     }
+  }
+  getReviews(song:String){
+    console.log(song);
+    return this.http.get(this.getReviewURL+song);
   }
   putUser(email:String){
     if(this.authService.getSiteAdmin()){
