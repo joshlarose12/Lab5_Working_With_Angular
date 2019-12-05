@@ -8,6 +8,7 @@ import { AdminComponent } from './admin/admin.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { AddSongComponent } from './add-song/add-song.component';
 import { AddReviewComponent } from './add-review/add-review.component';
+import { PolicyComponent } from './policy/policy.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,9 @@ const routes: Routes = [
   {path:'admin',component:AdminComponent},
   {path:'createaccount',component:CreateAccountComponent},
   {path:'addsong',component:AddSongComponent},
-  {path:'addreview',component:AddReviewComponent}
+  {path:'addreview',component:AddReviewComponent},
+  {path:'policy',component:PolicyComponent}
+
 ];
 
 @NgModule({

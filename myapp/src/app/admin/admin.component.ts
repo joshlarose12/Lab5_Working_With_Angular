@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
+import { Router } from '@angular/router';
 //admin functions
 @Component({
   selector: 'app-admin',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  policy:string;
+  error:string;
+  
+  constructor(private _http: HttpService,private router:Router) { }
 
+  
   ngOnInit() {
   }
   setAdmin(email){
@@ -20,4 +26,13 @@ export class AdminComponent implements OnInit {
   setHidden(title){
 
   }
+  createPolicy(){
+    this._http.postPolicy(this.policy).subscribe((res: any) => {
+      this.router.navigate(['']);
+    }, error => {
+      this.error = error.error,
+        console.log(error.error)
+    });
+  }
+
 }

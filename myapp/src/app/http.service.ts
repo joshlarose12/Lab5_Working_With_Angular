@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './templates/user';
 import { Song } from './templates/song';
-import { Review } from './templates/review';
 
 import { AuthService } from './auth.service';
 
@@ -18,7 +17,11 @@ export class HttpService {
   private postReviewURL: string = 'http://localhost:3000/api/secure/review/add';
   private getReviewURL: string = 'http://localhost:3000/api/open/review?song=';
   private getSearchURL: string = 'http://localhost:3000/api/open/search?search=';
-  private putUserURL: string = 'http://localhost:3000/api/secure/user'
+  private putUserURL: string = 'http://localhost:3000/api/secure/user';
+  private postPolicyURL: string = 'http://localhost:3000/api/secure/policy';
+  private getPolicyURL: string = 'http://localhost:3000/api/open/policy'
+
+
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -72,5 +75,17 @@ export class HttpService {
   }
   getSearch(search: string) {
     return this.http.get(this.getSearchURL + search);
+  }
+  postPolicy(policy: string) {
+    if (this.authService.getSiteAdmin()) {
+      console.log("here")
+      let headers = new HttpHeaders({
+        'auth-token': localStorage.getItem("access_token")
+      });
+      return this.http.post(this.postPolicyURL, { policy })
+    }
+  }
+  getPolicy() {
+    return this.http.get(this.getPolicyURL);
   }
 }

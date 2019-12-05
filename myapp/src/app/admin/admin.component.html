@@ -1,5 +1,19 @@
-<h1>Site Manager Privilege</h1>
+<h1>Site Manager Options</h1>
+
+
+<h2>Create a security and privacy policy:</h2>
+
+<form (ngSubmit)="createPolicy()">
+    <input type="text" placeholder="Policy" [(ngModel)]="policy" name="policy" required><br>
+    <input type="submit" value="Create">
+
+</form>
+
+
 <h2>Select an option:</h2>
+
+
+
 
 <div>
     <h2>

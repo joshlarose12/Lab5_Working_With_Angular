@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const Song = require('../model/Song');
 const Review = require('../model/Review');
-const mongoose = require('mongoose')
+const Policy = require('../model/Policy');
+const mongoose = require('mongoose');
 
 const verify = require('./privateRoutes');
 const { songValidation, reviewValidation } = require('../validation');
@@ -73,6 +74,20 @@ router.post('/review/add', verify, async (req, res) => {
     //     }
     // });
 
-})
+});
+router.post('/policy', async (req, res) => {
+    //create review
+    const policy = new Policy({
+        policy: req.body.policy,   
+    });
+    try {
+        const savedPolicy = await policy.save();
+        res.send({ policy: policy._id });
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
+
 
 module.exports = router;

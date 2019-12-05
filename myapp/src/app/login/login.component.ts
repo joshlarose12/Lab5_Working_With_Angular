@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         //checks if admin
         if (res.admin) {
           if (res.admin == true) {
+            this.authService.setSiteAdmin(true);
             this.router.navigate(['admin']);
           }
         }

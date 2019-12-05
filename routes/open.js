@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const User = require('../model/User');
 const Song = require('../model/Song');
-const Review = require('../model/Review')
+const Review = require('../model/Review');
+const Policy = require('../model/Policy');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
@@ -99,6 +100,14 @@ router.get("/review", async (req, res) => {
         if (err) return next(err);
 
         res.send(review);
+    })
+});
+//get policys
+router.get('/policy',async (req,res)=>{
+    Policy.find(function(err,policy){
+        if(err) return next(err)
+        console.log(policy[0].policy);
+        res.send(policy);
     })
 })
 

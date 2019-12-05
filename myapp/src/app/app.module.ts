@@ -12,6 +12,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { AddSongComponent } from './add-song/add-song.component';
 import { AddReviewComponent } from './add-review/add-review.component';
+import { PolicyComponent } from './policy/policy.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AddReviewComponent } from './add-review/add-review.component';
     AdminComponent,
     CreateAccountComponent,
     AddSongComponent,
-    AddReviewComponent
+    AddReviewComponent,
+    PolicyComponent
   ],
   imports: [
     BrowserModule,
