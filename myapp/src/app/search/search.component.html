@@ -20,22 +20,28 @@
                 <p class="comment">Comment: {{ song.comment }}</p>
                 <p class="genre">Genre: {{ song.genre }}</p>
                 <button (click)="getReviews(song.title)">View Reviews</button>
+                <div *ngIf="loggedIn">
+                    <button (click)="addReview(song.title)">Add Review</button>
+                </div>
             </div>
-
         </li>
     </ul>
 </div>
 
 <div *ngIf="displayReviews">
+    <button (click)='back()'>Back</button>
+    <div *ngIf="loggedIn">
+        <button (click)="addReview(song.title)">Add Review</button>
+    </div>
     <ul *ngIf="reviews">
-        <div *ngIf="review">
 
-            <li *ngFor="let review of reviews">
-                <p class="Review">Review: {{ review.review }}</p>
-                <p class="Rating">Rating: {{ review.rating }}</p>
-                <p class="Username">Username: {{ review.email }}</p>
-                <button (click)='back()'>Back</button>
-            </li>
-        </div>
+        <li *ngFor="let review of reviews">
+            <p class="Review">Review: {{ review.review }}</p>
+            <p class="Rating">Rating: {{ review.rating }}</p>
+            <p class="Username">Username: {{ review.username }}</p>
+        </li>
     </ul>
+    <div *ngIf="reviews[0] == null">
+        <p class="error">There are no reviews for this song</p>
+    </div>
 </div>

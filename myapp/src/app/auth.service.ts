@@ -8,6 +8,8 @@ export class AuthService {
   private loggedIn:Boolean = false;
   private songId:string = "";
   private siteAdmin:Boolean = false;
+  private title:String = "";
+  private username:String = "";
 
   constructor() { }
 
@@ -30,5 +32,18 @@ export class AuthService {
   }
   setSiteAdmin(value:Boolean){
     this.siteAdmin = value;
+  }
+
+  getTitle(){
+    return this.title;
+  }
+  setTitle(title){
+    this.title = title;
+  }
+  getUsername(){
+    return this.username;
+  }
+  setUsername(username){
+    this.username = username;
   }
 }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  admin: Boolean;
   loggedIn: Boolean;
   songs: Object;
   display: String;
@@ -28,12 +29,19 @@ export class HomeComponent implements OnInit {
       this.songs = data;
       console.log(this.songs);
     })
+    this.admin = this.auth.getSiteAdmin();
     this.loggedIn = this.auth.getLoggedIn();
     console.log(this.auth.getLoggedIn());
   }
+
   addSong() {
     this.router.navigate(['addsong']);
   }
+
+  adminSite(){
+    this.router.navigate(['admin']);
+  }
+
   displayMore(title) {
     if (this.clicked == false) {
 

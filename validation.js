@@ -9,7 +9,9 @@ const registerValidation = data => {
             .email(),
         password: Joi.string()
             .min(6)
-            .required()
+            .required(),
+        deactivated: Joi.bool()
+
     });
     return schema.validate(data)
 }
@@ -22,7 +24,8 @@ const loginValidation = data => {
             .email(),
         password: Joi.string()
             .min(6)
-            .required()
+            .required(),
+        deativated: Joi.bool()
     });
     return schema.validate(data)
 }
@@ -45,12 +48,14 @@ const songValidation = data => {
         comment: Joi.string()
             .max(30),
         genre: Joi.number()
-            .max(1),
+            .min(0)
+            .max(255),
         ratingAvg: Joi.number()
             .max(5)
     });
     return schema.validate(data);
 }
+//review validation
 const reviewValidation = data => {
     const schema = Joi.object({
         review: Joi.string()
@@ -72,5 +77,6 @@ const reviewValidation = data => {
 
 
 module.exports.registerValidation = registerValidation;
+module.exports.loginValidation = loginValidation;
 module.exports.songValidation = songValidation;
 module.exports.reviewValidation = reviewValidation;

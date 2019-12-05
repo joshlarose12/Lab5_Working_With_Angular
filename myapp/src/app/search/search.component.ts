@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -12,19 +14,22 @@ export class SearchComponent implements OnInit {
   displaySearch: Boolean;
   reviews: Object;
   displayReviews: Boolean;
-  constructor(private _http: HttpService) {
+  loggedIn: Boolean;
+
+  constructor(private _http: HttpService,
+    private auth: AuthService,
+    private router: Router,
+  ) {
     this.displaySearch = true;
     this.displayReviews = false;
+    this.loggedIn = this.auth.getLoggedIn();
   }
 
   ngOnInit() {
   }
-  toggle() {
-    if (!this.displaySearch) {
-      this.displaySearch = true;
-      console.log(this.displaySearch)
-    } else
-      this.displaySearch = false;
+  back() {
+    this.displaySearch = true;
+    this.displayReviews = false;
   }
   search() {
     console.log(this.keyword)
@@ -38,8 +43,15 @@ export class SearchComponent implements OnInit {
     this.displayReviews = true;
     this._http.getReviews(title).subscribe(data => {
       this.reviews = data;
-      console.log(data[0]);
+      this.displaySearch = false;
+      this.displayReviews = true;
+
+      console.log(data);
     });
+  }
+  addReview(title) {
+    this.auth.setTitle(title);
+    this.router.navigate(['addreview']);
   }
 
 

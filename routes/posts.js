@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const verify = require('./privateRoutes');
-
+//test route
 router.get('/',verify, (req,res) =>{
     res.json({
         posts: {

@@ -42,12 +42,14 @@ export class HttpService {
       return this.http.post(this.postSongsURL, song, { headers })
     }
   }
-  postReview(review: Review){
+  postReview(myReview:string,myRating:number){
+    console.log(this.authService.getUsername())
+
     if (this.authService.getLoggedIn()) {
       let headers = new HttpHeaders({
         'auth-token': localStorage.getItem("access_token")
       });
-      return this.http.post(this.postReviewURL, review, { headers })
+      return this.http.post(this.postReviewURL, {review:myReview,rating:myRating,username:this.authService.getUsername(),song:this.authService.getTitle()}, { headers })
     }
   }
   getReviews(song:String){

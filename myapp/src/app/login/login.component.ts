@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("access_token", res.token);
           this.loggedin = 'Logged in!';
           this.authService.setLoggedIn(true);
+          this.authService.setUsername(this.signupForm.value.email);
           console.log(this.authService.getLoggedIn());
         }
       }, error => { this.loggedin = error.error, console.log(error.error) }

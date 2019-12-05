@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const Song = require('../model/Song');
 const Review = require('../model/Review');
+const mongoose = require('mongoose')
 
 const verify = require('./privateRoutes');
-const {songValidation, reviewValidation} = require('../validation');
+const { songValidation, reviewValidation } = require('../validation');
 
 
-
-router.post('/songs/create',verify, async (req, res) => {
+//create a song
+router.post('/songs/create', verify, async (req, res) => {
     console.log("attempted to create a song");
 
     const { error } = songValidation(req.body)
@@ -25,7 +26,9 @@ router.post('/songs/create',verify, async (req, res) => {
         year: req.body.year,
         comment: req.body.comment,
         genre: req.body.genre,
-        ratingAvg: req.body.rating
+        ratingAvg: 0,
+        totalRev: 0,
+        hidden: false
     });
     try {
         const savedSong = await song.save();
@@ -34,8 +37,8 @@ router.post('/songs/create',verify, async (req, res) => {
         res.status(400).send(err);
     }
 });
-
-router.post('/review/add',verify, async(req,res)=>{
+//create a review
+router.post('/review/add', verify, async (req, res) => {
     const { error } = reviewValidation(req.body)
     if (error != null) return res.status(400).send(error.details[0].message);
 
@@ -52,6 +55,24 @@ router.post('/review/add',verify, async(req,res)=>{
     } catch (err) {
         res.status(400).send(err)
     }
+
+    //attempting to update review
+    const song = await Song.findOne({ title: req.body.song });
+    var total = song.totalRev + 1;
+    console.log(song);
+    var avg = (song.ratingAvg + req.body.rating) / total;
+    console.log(avg);
+    const update = {totalRev:total,ratingAvg:avg}
+
+    Song.findByIdAndUpdate(song._id,update);
+    // .update({ _id: song._id }, {
+    //     $set: {
+
+    //         "totalRev": total,
+    //         "ratingAvg": avg
+    //     }
+    // });
+
 })
 
 module.exports = router;

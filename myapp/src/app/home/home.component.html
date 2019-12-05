@@ -11,13 +11,20 @@
     <h2>Add song a song:</h2>
     <button (click)="addSong()">Add</button>
 </div>
+
+<div *ngIf="admin">
+    <h2>Admin logged in:</h2>
+    <button (click)="adminSite()">Admin settings</button>
+</div>
+
 <h2>Top Ten Rated Songs</h2>
-<ul *ngIf="songs">
+<ol *ngIf="songs">
     <div *ngFor="let song of songs; let i = index">
-        <li *ngIf="i < 11" id=i>
+        <li *ngIf="i < 10" id=i>
             <strong>
                 <p class="title">Title: {{ song.title }}</p>
             </strong>
+            <p class="rating">Rating: {{song.avgRating}}</p>
             <button (click)="displayMore(song.title)">More</button>
             <div *ngIf="display == song.title">
                 <p class="artist">Artist: {{ song.artist }}</p>
@@ -28,4 +35,4 @@
             </div>
         </li>
     </div>
-</ul>
+</ol>

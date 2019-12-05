@@ -1,0 +1,6 @@
+<form class="form-addreview" [formGroup]="reviewForm" (ngSubmit)="addReview()">
+        <input type="text" placeholder="Review" formControlName="review" id="review" required>
+        <input type="number" placeholder="Rating" formControlName="rating" id="rating" required>
+        <input type="submit" value="Add Song">
+    </form>
+    <p>{{error}}</p>

@@ -4,14 +4,15 @@ const Song = require('../model/Song');
 const Review = require('../model/Review')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { registerValidation } = require('../validation');
+const { registerValidation, loginValidation } = require('../validation');
 const stringSimilarity = require('string-similarity');
 
 router.post('/register', async (req, res) => {
 
     //validate information
     const { error } = registerValidation(req.body)
-    if (error != null) return res.status(400).send(error.details[0].message);
+
+    if (error != null) return res.status(400).send(error.details[0].message+"here");
 
     //Check if user is already in the database
     const emailExist = await User.findOne({ email: req.body.email });
@@ -25,7 +26,8 @@ router.post('/register', async (req, res) => {
     const user = new User({
         email: req.body.email,
         password: hashedPassword,
-        admin: false 
+        deactivated: req.body.deactivated,
+        admin: false,
     });
     try {
         const savedUser = await user.save();
@@ -38,7 +40,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     console.log("attemted login")
     //validate information
-    const { error } = registerValidation(req.body)
+    const { error } = loginValidation(req.body)
     if (error != null) return res.status(400).send(error.details[0].message);
 
     //Check if email exists
@@ -49,9 +51,12 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send('Invalid password');
 
+    //Check deactivated
+    if (user.deactivated) return res.status(400).send('Account is deactivated, contact Site Manager');
+
     //Create and assign web token
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '5m' });
-    res.header('auth-token', token).send({ token: token, admin:user.admin });
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '2h' });
+    res.header('auth-token', token).send({ token: token, admin: user.admin });
 
     //res.send('Logged in!!');
 
@@ -61,6 +66,7 @@ router.get('/songs', (req, res) => {
     Song.find(function (err, songs) {
         if (err) return next(err);
 
+        songs.sort(function (a,b){return b.avgRating - a.avgRating});
         res.send(songs);
     });
 });
@@ -68,22 +74,20 @@ router.get('/songs', (req, res) => {
 router.get('/search', async (req, res) => {
 
     Song.find(function (err, songs) {
-        var array = new Array(songs.length);
+        var array = new Array();
         if (err) return next(err);
 
         for (x = 0; x < songs.length; x++) {
-            if ((songs[x].title != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].title) >= 0.4) ||
-                songs[x].album != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].album) >= 0.4 ||
-                songs[x].artist != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].artist) >= 0.4 ||
-                songs[x].comment != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].comment) >= 0.4 ||
-                songs[x].year != undefined && stringSimilarity.compareTwoStrings(req.query.search, String(songs[x].year)) >= 0.4) {
-                array[x] = songs[x];
+            if ((songs[x].title != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].title) >= 0.6) ||
+                songs[x].album != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].album) >= 0.7 ||
+                songs[x].artist != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].artist) >= 0.7 ||
+                songs[x].comment != undefined && stringSimilarity.compareTwoStrings(req.query.search, songs[x].comment) >= 0.7 ||
+                songs[x].year != undefined && stringSimilarity.compareTwoStrings(req.query.search, String(songs[x].year)) >= 0.66) {
+                array.push(songs[x]);
             }
-            array.filter(function (el) {
-                return el != null;
-            });
+            
         }
-        
+
         res.send(array);
     });
 });
