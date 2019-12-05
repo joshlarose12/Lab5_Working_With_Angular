@@ -1,9 +1,13 @@
-<p *ngIf="loggedIn">Logged In</p>
+<p *ngIf="loggedIn">Logged In
+    <button (click)="logout()">Log out</button>
+</p>
 <h1>Music Experience</h1>
 <h2>About</h2>
 <p>This is a simple web application where users can comment, rate, and add new songs! A place to share music with
     friends</p>
+    <div *ngIf="!loggedIn">
 <a href="#" routerLink="/login">Login</a>
+    </div>
 
 <h1>Songs</h1>
 

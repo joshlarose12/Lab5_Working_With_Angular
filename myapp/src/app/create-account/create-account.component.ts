@@ -31,6 +31,7 @@ export class CreateAccountComponent implements OnInit {
 
 
   createUser() {
+    //post to create user
     this._http.postCreateUser(this.signupForm.value).subscribe((res: any) => {
       this.router.navigate(['']);
     }, error => {

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
+//service for components to communicate
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  //various different variables that multiple components will need access to
   private loggedIn:Boolean = false;
   private songId:string = "";
   private siteAdmin:Boolean = false;
@@ -13,6 +16,7 @@ export class AuthService {
 
   constructor() { }
 
+  //standard get and set functions for variables
   getLoggedIn(){
     return this.loggedIn;
   }

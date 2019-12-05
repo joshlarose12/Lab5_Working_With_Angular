@@ -6,3 +6,4 @@ export class Song {
     comment: String;
     genre: Number;
 }
+//song class

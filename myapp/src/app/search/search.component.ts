@@ -39,6 +39,7 @@ export class SearchComponent implements OnInit {
       console.log(data);
     });
   }
+  //displays reviews for selected song
   getReviews(title) {
     this.displayReviews = true;
     this._http.getReviews(title).subscribe(data => {
@@ -49,6 +50,8 @@ export class SearchComponent implements OnInit {
       console.log(data);
     });
   }
+  //directs user to add review page
+
   addReview(title) {
     this.auth.setTitle(title);
     this.router.navigate(['addreview']);

@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class HttpService {
-
+  //all routes to back end
   private postLoginUrl: string = 'http://localhost:3000/api/open/login';
   private postCreateUserURL: string = 'http://localhost:3000/api/open/register';
   private getSongsURL: string = 'http://localhost:3000/api/open/songs';
@@ -22,6 +22,8 @@ export class HttpService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
+
+  //all calls
   postLogin(user: User) {
     return this.http.post(this.postLoginUrl, user);
   }
@@ -35,6 +37,7 @@ export class HttpService {
   }
 
   postSong(song: Song) {
+    //checks token to verify logged in
     if (this.authService.getLoggedIn()) {
       let headers = new HttpHeaders({
         'auth-token': localStorage.getItem("access_token")
@@ -42,29 +45,32 @@ export class HttpService {
       return this.http.post(this.postSongsURL, song, { headers })
     }
   }
-  postReview(myReview:string,myRating:number){
+  postReview(myReview: string, myRating: number) {
     console.log(this.authService.getUsername())
+    //checks token to verify logged in
 
     if (this.authService.getLoggedIn()) {
       let headers = new HttpHeaders({
         'auth-token': localStorage.getItem("access_token")
       });
-      return this.http.post(this.postReviewURL, {review:myReview,rating:myRating,username:this.authService.getUsername(),song:this.authService.getTitle()}, { headers })
+      return this.http.post(this.postReviewURL, { review: myReview, rating: myRating, username: this.authService.getUsername(), song: this.authService.getTitle() }, { headers })
     }
   }
-  getReviews(song:String){
+  getReviews(song: String) {
     console.log(song);
-    return this.http.get(this.getReviewURL+song);
+    return this.http.get(this.getReviewURL + song);
   }
-  putUser(email:String){
-    if(this.authService.getSiteAdmin()){
+  putUser(email: String) {
+    //checks token to verify logged in
+
+    if (this.authService.getSiteAdmin()) {
       let headers = new HttpHeaders({
         'auth-token': localStorage.getItem("access_token")
       });
-      return this.http.put(this.putUserURL,{email})
+      return this.http.put(this.putUserURL, { email })
     }
   }
-  getSearch(search:string){
-    return this.http.get(this.getSearchURL+search);
+  getSearch(search: string) {
+    return this.http.get(this.getSearchURL + search);
   }
 }

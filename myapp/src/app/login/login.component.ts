@@ -29,16 +29,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  //log in function
   loginUser() {
+    //post call
     this._http.postLogin(this.signupForm.value).subscribe(
       (res: any) => {
         console.log(res.admin);
+        //checks if admin
         if (res.admin) {
           if (res.admin == true) {
             this.router.navigate(['admin']);
           }
         }
+        //successful login
         else {
           this.router.navigate(['']);
           localStorage.setItem("access_token", res.token);

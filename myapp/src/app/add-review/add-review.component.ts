@@ -13,7 +13,7 @@ export class AddReviewComponent implements OnInit {
   error: String;
   title: String;
   
-
+//build form group
   constructor(private _http: HttpService,
     private fb: FormBuilder,
     private auth: AuthService) {
@@ -26,12 +26,14 @@ export class AddReviewComponent implements OnInit {
   ngOnInit() {
     this.title = this.auth.getTitle();
   }
-
+  //add a review
   addReview() {
+    //post call to add review
     this._http.postReview(this.reviewForm.value.review,this.reviewForm.value.rating).subscribe((res: any) => {
       console.log("created song")
       this.error = res.error;
       },error=>{
+        //display error
         this.error = error.error;
         console.log(error);
       });

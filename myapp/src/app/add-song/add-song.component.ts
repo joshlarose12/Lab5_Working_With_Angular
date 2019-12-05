@@ -29,10 +29,12 @@ export class AddSongComponent implements OnInit {
   }
 
   addSong() {
+    //post the song using info from form
     this._http.postSong(this.songForm.value).subscribe((res: any) => {
       console.log("created song")
       this.error = res.error;
       },error=>{
+        //display error
         this.error = error.error;
         console.log(error);
       });

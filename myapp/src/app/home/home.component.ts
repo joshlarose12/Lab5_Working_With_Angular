@@ -24,24 +24,25 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
+//display all songs gy getting from database
     this._http.getSongs().subscribe(data => {
       this.songs = data;
       console.log(this.songs);
     })
+    //set bools to display a log in
     this.admin = this.auth.getSiteAdmin();
     this.loggedIn = this.auth.getLoggedIn();
     console.log(this.auth.getLoggedIn());
   }
-
+  //navigate to add song route
   addSong() {
     this.router.navigate(['addsong']);
   }
-
+  //navigate to admin route
   adminSite(){
     this.router.navigate(['admin']);
   }
-
+  //display more when clicked
   displayMore(title) {
     if (this.clicked == false) {
 
@@ -55,5 +56,12 @@ export class HomeComponent implements OnInit {
       else
         this.display = title;
     }
+  }
+  //logs out user and brings tehm to login page
+  logout(){
+    this.auth.setLoggedIn(false);
+    this.auth.setSiteAdmin(false);
+    this.router.navigate(['login']);
+    localStorage.clear();
   }
 }

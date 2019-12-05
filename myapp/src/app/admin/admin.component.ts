@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+//admin functions
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
